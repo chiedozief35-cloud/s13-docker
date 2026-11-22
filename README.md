@@ -19,7 +19,7 @@ The application uses only the Node.js standard library and has no package depend
 - HTML5, CSS3, and vanilla JavaScript
 - Node.js 22
 - Docker and Docker Compose
-- Forgejo Actions
+- GitHub Actions
 - Git and curl
 
 ## Run
