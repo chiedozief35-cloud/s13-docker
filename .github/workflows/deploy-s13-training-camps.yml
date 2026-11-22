@@ -73,3 +73,22 @@ jobs:
           set -euo pipefail
           docker push "${IMAGE_NAME}:${IMAGE_TAG}"
           docker push "${IMAGE_NAME}:latest"
+
+      - name: Start and show published container
+        run: |
+          set -euo pipefail
+          docker pull "${IMAGE_NAME}:${IMAGE_TAG}"
+          docker rm --force s13-training-camps-published 2>/dev/null || true
+          docker run --detach \
+            --name s13-training-camps-published \
+            --publish 8080:8080 \
+            --volume s13-training-camps-data:/data \
+            "${IMAGE_NAME}:${IMAGE_TAG}"
+
+          curl --fail --retry 10 --retry-delay 2 --retry-connrefused \
+            http://127.0.0.1:8080/health
+
+          echo "Published container:"
+          docker ps --filter name=s13-training-camps-published
+          docker inspect s13-training-camps-published \
+            --format 'Image: {{.Config.Image}} | Status: {{.State.Status}} | Ports: {{json .NetworkSettings.Ports}}'
