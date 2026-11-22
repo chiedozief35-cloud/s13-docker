@@ -42,7 +42,7 @@ jobs:
           set -euo pipefail
           docker rm --force s13-training-camps 2>/dev/null || true
 
-      - name: Start application with new images
+      - name: Start application with new image
         run: |
           set -euo pipefail
           docker volume create s13-training-camps-data >/dev/null
