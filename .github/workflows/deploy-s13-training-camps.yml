@@ -81,7 +81,9 @@ jobs:
       - name: Publish Docker image
         run: |
           set -euo pipefail
+          echo "Pushing devopseasylearning/s13-training-camps:${IMAGE_TAG}"
           docker push "${IMAGE_NAME}:${IMAGE_TAG}"
+          echo "Pushing devopseasylearning/s13-training-camps:latest"
           docker push "${IMAGE_NAME}:latest"
 
       - name: Start and show published container
