@@ -38,6 +38,15 @@ jobs:
           set -euo pipefail
           docker build --pull --tag "${IMAGE_NAME}:${IMAGE_TAG}" --tag "${IMAGE_NAME}:latest" .
 
+      - name: Show built Docker image
+        run: |
+          set -euo pipefail
+          echo "Built image: ${IMAGE_NAME}:${IMAGE_TAG}"
+          docker image inspect "${IMAGE_NAME}:${IMAGE_TAG}" --format 'Image ID: {{.Id}}'
+          docker image inspect "${IMAGE_NAME}:${IMAGE_TAG}" --format 'Platform: {{.Os}}/{{.Architecture}}'
+          docker image inspect "${IMAGE_NAME}:${IMAGE_TAG}" --format 'Size: {{.Size}} bytes'
+          docker image ls "${IMAGE_NAME}"
+
       - name: Smoke-test container
         run: |
           set -euo pipefail
