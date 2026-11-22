@@ -72,10 +72,16 @@ jobs:
             echo "docker_username is missing. Add it to GitHub Actions secrets."
             exit 1
           fi
+          if [[ "$DOCKER_USERNAME" != "devopseasylearning" ]]; then
+            echo "docker_username must be devopseasylearning for this repository."
+            exit 1
+          fi
           if [[ -z "$DOCKER_TOKEN" ]]; then
             echo "docker_token is missing. Add it to GitHub Actions secrets."
             exit 1
           fi
+
+          echo "Docker Hub username is set to devopseasylearning."
 
       - name: Sign in to Docker Hub
         uses: docker/login-action@v3
