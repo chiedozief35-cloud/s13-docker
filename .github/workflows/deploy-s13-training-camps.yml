@@ -1,6 +1,7 @@
 name: Build S13 Training Camps
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - "**"
